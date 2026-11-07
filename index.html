@@ -60,6 +60,8 @@
     <button data-vista="frente">Frente</button><button data-vista="fundos">Fundos</button>
     <button id="btnAndar">Caminhar</button>
   </div>
+  <h2>Telhado</h2>
+  <select id="selTelhado" style="width:100%;font:12px system-ui;padding:3px"></select>
   <h2>Camadas</h2>
   <div id="camadas"></div>
   <label><input type="checkbox" id="cbRotulos" checked> nomes dos cômodos</label>
@@ -94,7 +96,10 @@ if (PUBLICADO) document.getElementById('ajuda').innerHTML = TOQUE
   ? 'Arraste para girar, pinça para zoom, dois dedos para mover.<br>Toque num elemento para ver detalhes. Medir: toque em 2 pontos.'
   : 'Arraste para girar, roda para zoom, botão direito para mover.<br>Clique num elemento para ver detalhes. Medir: clique em 2 pontos.<br>Caminhar: WASD + mouse, Esc sai.';
 const NOMES_CAMADAS = { paredes:'Paredes', aberturas:'Portas e janelas', muros:'Muros', pisos:'Pisos',
-  forros:'Forros (tetos)', cobertura:'Cobertura', pergola:'Pérgola', exterior:'Terreno e entorno' };
+  forros:'Forros (tetos)', pergola:'Pérgola', exterior:'Terreno e entorno' };
+const selTelhado = document.getElementById('selTelhado');
+let telhadoSel = URLP.get('telhado') || 'nenhum';
+selTelhado.onchange = () => { telhadoSel = selTelhado.value; aplicarVisibilidade(); };
 const camadasOcultas = new Set((URLP.get('camadas') || '-cobertura,-forros').split(',')
   .filter(s => s.startsWith('-')).map(s => s.slice(1)));
 (URLP.get('camadas') || '').split(',').filter(s => s && !s.startsWith('-')).forEach(s => camadasOcultas.delete(s));
@@ -183,6 +188,10 @@ async function carregar() {
   document.getElementById('versao').textContent =
     `planta ${meta.versao}` + (nAlt ? ` + ${nAlt} alteração(ões)` : ' (sem alterações)')
     + (meta.publicado_em ? ` · atualizado em ${meta.publicado_em}` : '');
+  selTelhado.innerHTML = '<option value="nenhum">Sem telhado</option>' +
+    (meta.telhados || []).map(t => `<option value="${t.id}">${t.nome}</option>`).join('');
+  if (![...selTelhado.options].some(o => o.value === telhadoSel)) telhadoSel = 'nenhum';
+  selTelhado.value = telhadoSel;
   montarCamadas(); aplicarVisibilidade(); aplicarCorte();
   const L = meta.lote.L, P = meta.lote.P;
   sol.position.copy(M2T(L / 2 - 20, P / 2 - 25, 35)); sol.target.position.copy(M2T(L / 2, P / 2, 0));
@@ -201,6 +210,10 @@ function montarCamadas() {
 }
 function aplicarVisibilidade() {
   for (const [c, g] of Object.entries(grupos)) g.visible = !camadasOcultas.has(c);
+  if (grupos.telhado) {
+    grupos.telhado.visible = telhadoSel !== 'nenhum';
+    grupos.telhado.children.forEach(o => o.visible = o.userData.id === telhadoSel);
+  }
   const mostrar = document.getElementById('cbRotulos').checked;
   rotulos.forEach(r => r.visible = mostrar);
 }
@@ -341,12 +354,14 @@ if (!PUBLICADO) setInterval(async () => {
 const rayRot = new THREE.Raycaster();
 setInterval(() => {
   if (!modeloRaiz || !document.getElementById('cbRotulos').checked) return;
-  const bloqueios = ['paredes', 'muros'].filter(c => grupos[c] && grupos[c].visible).map(c => grupos[c]);
+  const bloqueios = [];
+  ['paredes', 'muros', 'telhado'].filter(c => grupos[c] && grupos[c].visible)
+    .forEach(c => grupos[c].traverse(o => { if (o.isMesh && o.visible) bloqueios.push(o); }));
   for (const r of rotulos) {
     const d = r.position.distanceTo(camera.position);
     rayRot.set(camera.position, r.position.clone().sub(camera.position).normalize());
     rayRot.far = d - 0.2;
-    const hit = rayRot.intersectObjects(bloqueios, true).find(h =>
+    const hit = rayRot.intersectObjects(bloqueios, false).find(h =>
       !(cbCorte.checked && h.point.y > planoCorte.constant));
     r.element.style.opacity = hit ? '0' : '1';
   }
