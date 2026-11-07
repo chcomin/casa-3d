@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Casa 3D</title>
+<style>
+  :root { --bg:#dfe7ee; --painel:#ffffffee; --fg:#1f2328; --sub:#666; --borda:#ccd; --acento:#1a5fb4; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+    --bg:#1b1e22; --painel:#26292eee; --fg:#e8e8e8; --sub:#aaa; --borda:#444; --acento:#78aeed; } }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--fg); font:13px system-ui, sans-serif; overflow:hidden; }
+  #app { position:fixed; inset:0; }
+  #painel { position:fixed; top:8px; left:8px; width:230px; max-height:calc(100% - 16px); overflow:auto;
+    background:var(--painel); border:1px solid var(--borda); border-radius:8px; padding:10px 12px; z-index:3;
+    box-shadow:0 2px 10px #0003; }
+  #painel h1 { font-size:14px; margin:0 0 2px; }
+  #painel .sub { color:var(--sub); font-size:11px; margin-bottom:8px; }
+  #painel h2 { font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--sub); margin:10px 0 4px; }
+  #painel label { display:block; margin:2px 0; cursor:pointer; }
+  .botoes { display:flex; flex-wrap:wrap; gap:4px; }
+  button { font:12px system-ui; padding:4px 7px; border-radius:5px; border:1px solid var(--borda);
+    background:transparent; color:var(--fg); cursor:pointer; }
+  button.ativo { background:var(--acento); color:#fff; border-color:var(--acento); }
+  input[type=range] { width:100%; }
+  #info { position:fixed; right:8px; bottom:8px; max-width:380px; background:var(--painel); border:1px solid var(--borda);
+    border-radius:8px; padding:8px 10px; z-index:3; font-size:12px; white-space:pre-line; }
+  #info:empty { display:none; }
+  #coord { position:fixed; left:8px; bottom:8px; font:12px monospace; background:var(--painel); padding:3px 6px;
+    border-radius:5px; z-index:3; }
+  .rotulo { font:600 12px system-ui; color:#222; background:#fffd; padding:1px 5px; border-radius:4px;
+    white-space:nowrap; pointer-events:none; text-align:center; }
+  .rotulo small { font-weight:400; color:#555; display:block; }
+  .medida { font:700 12px monospace; color:#fff; background:#c01c28; padding:2px 5px; border-radius:4px; pointer-events:none; }
+  #mira { position:fixed; left:50%; top:50%; width:6px; height:6px; margin:-3px; border-radius:50%; background:#fff;
+    box-shadow:0 0 0 1px #000; display:none; z-index:4; }
+  #ajuda { color:var(--sub); font-size:11px; margin-top:8px; }
+  #cabecalho { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; }
+  #btnPainel { padding:2px 8px; font-size:14px; line-height:1; }
+  #painel.recolhido #corpo { display:none; }
+  #painel.recolhido .sub { margin-bottom:0; }
+  @media (pointer: coarse) { #btnAndar, #coord { display:none; } }
+  @media (max-width: 600px) { #info { left:8px; right:8px; max-width:none; } }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div id="mira"></div>
+<div id="painel">
+  <div id="cabecalho"><h1>Casa 3D</h1><button id="btnPainel" title="mostrar/ocultar opções">–</button></div>
+  <div class="sub" id="versao">carregando…</div>
+  <div id="corpo">
+  <h2>Vistas</h2>
+  <div class="botoes">
+    <button data-vista="iso">Isométrica</button><button data-vista="topo">Topo</button>
+    <button data-vista="frente">Frente</button><button data-vista="fundos">Fundos</button>
+    <button id="btnAndar">Caminhar</button>
+  </div>
+  <h2>Camadas</h2>
+  <div id="camadas"></div>
+  <label><input type="checkbox" id="cbRotulos" checked> nomes dos cômodos</label>
+  <h2>Corte horizontal</h2>
+  <label><input type="checkbox" id="cbCorte"> cortar a <span id="hCorte">1,40</span> m</label>
+  <input type="range" id="rgCorte" min="0.3" max="5" step="0.05" value="1.4">
+  <h2>Ferramentas</h2>
+  <div class="botoes"><button id="btnMedir">Medir</button><button id="btnLimpar">Limpar medidas</button></div>
+  <div id="ajuda">Clique num elemento para ver o ID (use o ID ao pedir mudanças ao agente).<br>
+  Medir: clique em 2 pontos. Caminhar: WASD + mouse, Esc sai.</div>
+  </div>
+</div>
+<div id="coord">x –  y –  z –</div>
+<div id="info"></div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+const URLP = new URLSearchParams(location.search);
+const BASE = './';
+const PUBLICADO = true;  // tools/publicar.py troca para true (sem recarga automática)
+const TOQUE = matchMedia('(pointer: coarse)').matches;
+const painel = document.getElementById('painel'), btnPainel = document.getElementById('btnPainel');
+function recolher(sim) { painel.classList.toggle('recolhido', sim); btnPainel.textContent = sim ? '☰' : '–'; }
+btnPainel.onclick = () => recolher(!painel.classList.contains('recolhido'));
+recolher(innerWidth < 700);
+if (PUBLICADO) document.getElementById('ajuda').innerHTML = TOQUE
+  ? 'Arraste para girar, pinça para zoom, dois dedos para mover.<br>Toque num elemento para ver detalhes. Medir: toque em 2 pontos.'
+  : 'Arraste para girar, roda para zoom, botão direito para mover.<br>Clique num elemento para ver detalhes. Medir: clique em 2 pontos.<br>Caminhar: WASD + mouse, Esc sai.';
+const NOMES_CAMADAS = { paredes:'Paredes', aberturas:'Portas e janelas', muros:'Muros', pisos:'Pisos',
+  forros:'Forros (tetos)', cobertura:'Cobertura', pergola:'Pérgola', exterior:'Terreno e entorno' };
+const camadasOcultas = new Set((URLP.get('camadas') || '-cobertura').split(',')
+  .filter(s => s.startsWith('-')).map(s => s.slice(1)));
+(URLP.get('camadas') || '').split(',').filter(s => s && !s.startsWith('-')).forEach(s => camadasOcultas.delete(s));
+
+// ---------- coordenadas: modelo (x, y, z) <-> three (X=x, Y=z, Z=-y)
+const M2T = (x, y, z) => new THREE.Vector3(x, z, -y);
+const T2M = v => ({ x: v.x, y: -v.z, z: v.y });
+const f2 = v => v.toFixed(2).replace('.', ',');
+
+// ---------- renderização
+const app = document.getElementById('app');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.localClippingEnabled = true;
+app.appendChild(renderer.domElement);
+const css2d = new CSS2DRenderer();
+css2d.setSize(innerWidth, innerHeight);
+Object.assign(css2d.domElement.style, { position: 'absolute', top: 0, left: 0, pointerEvents: 'none' });
+app.appendChild(css2d.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xcfe0ee);
+const camera = new THREE.PerspectiveCamera(45, innerWidth / innerHeight, 0.05, 500);
+scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c4, 1.4), new THREE.AmbientLight(0xffffff, 0.5));
+const sol = new THREE.DirectionalLight(0xffffff, 2.2);
+sol.castShadow = true;
+sol.shadow.mapSize.set(4096, 4096);
+Object.assign(sol.shadow.camera, { left: -25, right: 25, top: 25, bottom: -25, near: 1, far: 120 });
+sol.shadow.bias = -0.0004;
+scene.add(sol, sol.target);
+
+const orbita = new OrbitControls(camera, renderer.domElement);
+orbita.enableDamping = true;
+const andar = new PointerLockControls(camera, document.body);
+const planoCorte = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1.4);
+
+let modeloRaiz = null, meta = null, rotulos = [];
+const grupos = {};
+
+function camadaDe(obj) {
+  for (let o = obj; o; o = o.parent) { if (o.userData.camada) return o; }
+  return null;
+}
+
+async function carregar() {
+  const carimbo = Date.now();
+  meta = await (await fetch(BASE + 'modelo.json?t=' + carimbo, { cache: 'no-store' })).json();
+  const gltf = await new GLTFLoader().loadAsync(BASE + 'casa.glb?t=' + carimbo);
+  if (modeloRaiz) { scene.remove(modeloRaiz); rotulos.forEach(r => r.removeFromParent()); rotulos = []; }
+  for (const k in grupos) delete grupos[k];
+  modeloRaiz = new THREE.Group();
+  gltf.scene.traverse(o => {
+    if (!o.isMesh) return;
+    const partes = o.name.split('~');
+    o.userData.camada = partes[0]; o.userData.id = partes[1]; o.userData.parte = partes[2] || '';
+    o.castShadow = !['exterior', 'cobertura'].includes(partes[0]);
+    o.receiveShadow = true;
+    const mats = Array.isArray(o.material) ? o.material : [o.material];
+    mats.forEach(m => { m.clippingPlanes = []; if (m.transparent) m.depthWrite = false; });
+  });
+  // agrupa por camada
+  const malhas = []; gltf.scene.traverse(o => { if (o.isMesh) malhas.push(o); });
+  for (const o of malhas) {
+    const c = o.userData.camada;
+    if (!grupos[c]) { grupos[c] = new THREE.Group(); grupos[c].name = c; modeloRaiz.add(grupos[c]); }
+    o.updateWorldMatrix(true, false);
+    const mundo = o.matrixWorld.clone();
+    grupos[c].add(o); o.matrix.copy(mundo); o.matrix.decompose(o.position, o.quaternion, o.scale);
+  }
+  scene.add(modeloRaiz);
+  // rótulos dos cômodos
+  for (const c of meta.comodos) {
+    if (c.tipo === 'shaft') continue;
+    const div = document.createElement('div');
+    div.className = 'rotulo';
+    div.innerHTML = `${c.nome}<small>${f2(c.area)} m²</small>`;
+    const obj = new CSS2DObject(div);
+    obj.position.copy(M2T(c.centro[0], c.centro[1], c.nivel + 1.3));
+    scene.add(obj); rotulos.push(obj);
+  }
+  const nAlt = (meta.alteracoes || []).length;
+  document.getElementById('versao').textContent =
+    `planta ${meta.versao}` + (nAlt ? ` + ${nAlt} alteração(ões)` : ' (sem alterações)')
+    + (meta.publicado_em ? ` · atualizado em ${meta.publicado_em}` : '');
+  montarCamadas(); aplicarVisibilidade(); aplicarCorte();
+  const L = meta.lote.L, P = meta.lote.P;
+  sol.position.copy(M2T(L / 2 - 20, P / 2 - 25, 35)); sol.target.position.copy(M2T(L / 2, P / 2, 0));
+}
+
+function montarCamadas() {
+  const div = document.getElementById('camadas');
+  div.innerHTML = '';
+  for (const c of Object.keys(NOMES_CAMADAS)) {
+    if (!grupos[c]) continue;
+    const lb = document.createElement('label');
+    lb.innerHTML = `<input type="checkbox" ${camadasOcultas.has(c) ? '' : 'checked'}> ${NOMES_CAMADAS[c]}`;
+    lb.querySelector('input').onchange = e => { e.target.checked ? camadasOcultas.delete(c) : camadasOcultas.add(c); aplicarVisibilidade(); };
+    div.appendChild(lb);
+  }
+}
+function aplicarVisibilidade() {
+  for (const [c, g] of Object.entries(grupos)) g.visible = !camadasOcultas.has(c);
+  const mostrar = document.getElementById('cbRotulos').checked;
+  rotulos.forEach(r => r.visible = mostrar);
+}
+document.getElementById('cbRotulos').onchange = aplicarVisibilidade;
+
+// ---------- corte horizontal
+const cbCorte = document.getElementById('cbCorte'), rgCorte = document.getElementById('rgCorte');
+function aplicarCorte() {
+  planoCorte.constant = parseFloat(rgCorte.value);
+  document.getElementById('hCorte').textContent = f2(planoCorte.constant);
+  if (!modeloRaiz) return;
+  modeloRaiz.traverse(o => {
+    if (!o.isMesh) return;
+    const corta = cbCorte.checked && o.userData.camada !== 'exterior';
+    (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => { m.clippingPlanes = corta ? [planoCorte] : []; m.needsUpdate = true; });
+  });
+}
+cbCorte.onchange = aplicarCorte; rgCorte.oninput = () => { cbCorte.checked = true; aplicarCorte(); };
+
+// ---------- vistas
+function vista(nome) {
+  sairAndar();
+  const L = meta.lote.L, P = meta.lote.P, alvo = M2T(L / 2, P / 2, 0);
+  const pos = { iso: M2T(L + 14, -10, 22), topo: M2T(L / 2, P / 2 - 0.01, 48), frente: M2T(L / 2, -16, 4),
+    fundos: M2T(L / 2 + 3, P + 14, 9) }[nome];
+  if (!pos) return;
+  const afastar = Math.max(1, 1.0 / camera.aspect);  // telas em pé (celular) precisam de mais distância
+  pos.sub(alvo).multiplyScalar(afastar).add(alvo);
+  camera.position.copy(pos);
+  orbita.target.copy(nome === 'frente' ? M2T(L / 2, P / 2 - 6, 2) : alvo);
+  orbita.update();
+  document.querySelectorAll('[data-vista]').forEach(b => b.classList.toggle('ativo', b.dataset.vista === nome));
+}
+document.querySelectorAll('[data-vista]').forEach(b => b.onclick = () => vista(b.dataset.vista));
+function vistaInterior(px, py, ox, oy) {
+  const olho = (meta.params.nivel_casa || 0) + 1.6;
+  camera.position.copy(M2T(px, py, olho));
+  orbita.target.copy(M2T(ox, oy, olho - 0.15));
+  orbita.update();
+}
+
+// ---------- caminhar
+const teclas = {};
+const btnAndar = document.getElementById('btnAndar');
+btnAndar.onclick = () => {
+  const olho = (meta.params.nivel_casa || 0) + 1.6;
+  if (camera.position.y > 6) camera.position.copy(M2T(6.8, 1.0, olho)); // entra pela garagem
+  camera.position.y = olho;
+  andar.lock();
+};
+andar.addEventListener('lock', () => { orbita.enabled = false; btnAndar.classList.add('ativo'); document.getElementById('mira').style.display = 'block'; });
+andar.addEventListener('unlock', () => sairAndar());
+function sairAndar() {
+  if (andar.isLocked) andar.unlock();
+  orbita.enabled = true; btnAndar.classList.remove('ativo'); document.getElementById('mira').style.display = 'none';
+  const dir = new THREE.Vector3(); camera.getWorldDirection(dir);
+  orbita.target.copy(camera.position).addScaledVector(dir, 3);
+}
+addEventListener('keydown', e => { teclas[e.code] = true; if (e.code === 'Escape') { modoMedir(false); } });
+addEventListener('keyup', e => { teclas[e.code] = false; });
+
+// ---------- seleção, coordenadas e medição
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+let medindo = false, pontos = [], objetosMedida = [], selecionado = null, corOriginal = null;
+function intersecao(ev) {
+  const r = renderer.domElement.getBoundingClientRect();
+  mouse.set(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const hits = ray.intersectObjects(modeloRaiz ? modeloRaiz.children : [], true)
+    .filter(h => h.object.visible && h.object.parent.visible &&
+      !(cbCorte.checked && h.object.userData.camada !== 'exterior' && h.point.y > planoCorte.constant) &&
+      !(h.object.material.transparent && h.object.userData.camada === 'cobertura'));
+  return hits[0];
+}
+renderer.domElement.addEventListener('pointermove', ev => {
+  if (!modeloRaiz || andar.isLocked) return;
+  const h = intersecao(ev);
+  if (h) { const p = T2M(h.point); document.getElementById('coord').textContent = `x ${f2(p.x)}  y ${f2(p.y)}  z ${f2(p.z)} m`; }
+});
+let downXY = null;
+renderer.domElement.addEventListener('pointerdown', ev => { downXY = [ev.clientX, ev.clientY]; });
+renderer.domElement.addEventListener('pointerup', ev => {
+  if (!downXY || Math.hypot(ev.clientX - downXY[0], ev.clientY - downXY[1]) > 4 || andar.isLocked) return;
+  const h = intersecao(ev);
+  if (medindo) { if (h) adicionarPonto(h.point); return; }
+  selecionar(h ? h.object : null);
+});
+function selecionar(obj) {
+  if (selecionado) { selecionado.material = corOriginal; selecionado = null; }
+  const info = document.getElementById('info');
+  if (!obj) { info.textContent = ''; return; }
+  corOriginal = obj.material;
+  obj.material = obj.material.clone(); obj.material.emissive = new THREE.Color(0x3366ff); obj.material.emissiveIntensity = 0.5;
+  selecionado = obj;
+  const id = obj.userData.id, e = (meta.elementos || {})[id] || {};
+  const linhas = [`${id}${obj.userData.parte ? ' (' + obj.userData.parte + ')' : ''} — ${e.desc || ''}`, `camada: ${obj.userData.camada} · tipo: ${e.tipo || '?'}`];
+  if (e.comprimento !== undefined) linhas.push(`comprimento ${f2(e.comprimento)} m · espessura ${f2(e.espessura)} m · altura ${f2(e.base)} a ${f2(e.topo)} m`);
+  if (e.largura !== undefined) linhas.push(`${e.rotulo || ''}  (largura ${f2(e.largura)} · altura ${f2(e.altura)} · peitoril ${f2(e.peitoril)}) na parede ${e.parede}` + (e.provisoria ? '\n⚠ provisória (não está na planta)' : ''));
+  if (e.area !== undefined) linhas.push(`área ${f2(e.area)} m²`);
+  info.textContent = linhas.join('\n');
+}
+function modoMedir(on) {
+  medindo = on; pontos = [];
+  document.getElementById('btnMedir').classList.toggle('ativo', on);
+  renderer.domElement.style.cursor = on ? 'crosshair' : '';
+}
+document.getElementById('btnMedir').onclick = () => modoMedir(!medindo);
+document.getElementById('btnLimpar').onclick = () => { objetosMedida.forEach(o => o.removeFromParent()); objetosMedida = []; pontos = []; };
+function adicionarPonto(p) {
+  const esf = new THREE.Mesh(new THREE.SphereGeometry(0.04), new THREE.MeshBasicMaterial({ color: 0xc01c28, depthTest: false }));
+  esf.position.copy(p); esf.renderOrder = 10; scene.add(esf); objetosMedida.push(esf);
+  pontos.push(p.clone());
+  if (pontos.length === 2) {
+    const [a, b] = pontos;
+    const lin = new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, b]),
+      new THREE.LineBasicMaterial({ color: 0xc01c28, depthTest: false }));
+    lin.renderOrder = 10; scene.add(lin); objetosMedida.push(lin);
+    const A = T2M(a), B = T2M(b);
+    const div = document.createElement('div'); div.className = 'medida';
+    div.textContent = `${f2(a.distanceTo(b))} m (Δx ${f2(Math.abs(B.x - A.x))} Δy ${f2(Math.abs(B.y - A.y))} Δz ${f2(Math.abs(B.z - A.z))})`;
+    const lbl = new CSS2DObject(div); lbl.position.copy(a.clone().add(b).multiplyScalar(0.5));
+    scene.add(lbl); objetosMedida.push(lbl);
+    pontos = [];
+  }
+}
+
+// ---------- recarga automática quando o build muda
+let carimboBuild = null;
+if (!PUBLICADO) setInterval(async () => {
+  try {
+    const j = await (await fetch(BASE + 'build.json', { cache: 'no-store' })).json();
+    if (carimboBuild && j.carimbo !== carimboBuild) { await carregar(); }
+    carimboBuild = j.carimbo;
+  } catch (e) { /* servidor parado */ }
+}, 1500);
+
+// ---------- oculta rótulos que estão atrás de paredes
+const rayRot = new THREE.Raycaster();
+setInterval(() => {
+  if (!modeloRaiz || !document.getElementById('cbRotulos').checked) return;
+  const bloqueios = ['paredes', 'muros'].filter(c => grupos[c] && grupos[c].visible).map(c => grupos[c]);
+  for (const r of rotulos) {
+    const d = r.position.distanceTo(camera.position);
+    rayRot.set(camera.position, r.position.clone().sub(camera.position).normalize());
+    rayRot.far = d - 0.2;
+    const hit = rayRot.intersectObjects(bloqueios, true).find(h =>
+      !(cbCorte.checked && h.point.y > planoCorte.constant));
+    r.element.style.opacity = hit ? '0' : '1';
+  }
+}, 250);
+
+// ---------- laço
+const relogio = new THREE.Clock();
+function laco() {
+  const dt = Math.min(relogio.getDelta(), 0.1);
+  if (andar.isLocked) {
+    const v = (teclas.ShiftLeft ? 3.5 : 1.6) * dt;
+    if (teclas.KeyW) andar.moveForward(v); if (teclas.KeyS) andar.moveForward(-v);
+    if (teclas.KeyA) andar.moveRight(-v); if (teclas.KeyD) andar.moveRight(v);
+  } else orbita.update();
+  renderer.render(scene, camera);
+  css2d.render(scene, camera);
+  requestAnimationFrame(laco);
+}
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight); css2d.setSize(innerWidth, innerHeight);
+});
+
+// ---------- início
+await carregar();
+if (URLP.has('rotulos')) { document.getElementById('cbRotulos').checked = URLP.get('rotulos') !== '0'; aplicarVisibilidade(); }
+if (URLP.has('corte')) { rgCorte.value = URLP.get('corte'); cbCorte.checked = true; aplicarCorte(); }
+const v = URLP.get('vista') || 'iso';
+if (v === 'interior') {
+  const [ox, oy] = (URLP.get('olhar') || '7.8,14').split(',').map(Number);
+  vistaInterior(+(URLP.get('px') || 7.8), +(URLP.get('py') || 6.5), ox, oy);
+} else vista(v);
+laco();
+requestAnimationFrame(() => requestAnimationFrame(() => { window.PRONTO = true; }));
+</script>
+</body>
+</html>
