@@ -95,7 +95,7 @@ if (PUBLICADO) document.getElementById('ajuda').innerHTML = TOQUE
   : 'Arraste para girar, roda para zoom, botão direito para mover.<br>Clique num elemento para ver detalhes. Medir: clique em 2 pontos.<br>Caminhar: WASD + mouse, Esc sai.';
 const NOMES_CAMADAS = { paredes:'Paredes', aberturas:'Portas e janelas', muros:'Muros', pisos:'Pisos',
   forros:'Forros (tetos)', cobertura:'Cobertura', pergola:'Pérgola', exterior:'Terreno e entorno' };
-const camadasOcultas = new Set((URLP.get('camadas') || '-cobertura').split(',')
+const camadasOcultas = new Set((URLP.get('camadas') || '-cobertura,-forros').split(',')
   .filter(s => s.startsWith('-')).map(s => s.slice(1)));
 (URLP.get('camadas') || '').split(',').filter(s => s && !s.startsWith('-')).forEach(s => camadasOcultas.delete(s));
 
