@@ -35,6 +35,8 @@ td.n{text-align:right;white-space:nowrap}
 @media (max-width:900px){.det{grid-template-columns:1fr}}
 .palco{position:relative;background:#fff;border:1px solid var(--borda);border-radius:10px;overflow:hidden;
  height:min(78vh,900px);touch-action:none;cursor:grab}
+.palco.cheia{position:fixed;inset:0;z-index:50;height:auto;border:0;border-radius:0}
+.palco:fullscreen{height:100%;border:0;border-radius:0}
 .palco img{position:absolute;left:0;top:0;transform-origin:0 0;user-select:none;-webkit-user-drag:none;max-width:none}
 .zoom{position:absolute;right:8px;top:8px;display:flex;flex-direction:column;gap:6px;z-index:2}
 .zoom button,.nav button{font:600 16px system-ui;width:36px;height:36px;border-radius:8px;border:1px solid var(--borda);
@@ -97,6 +99,7 @@ const fmt = v => v.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFra
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function detalhe(id){
   const o = OPCOES.find(x => x.id === id), el = $('#detalhe');
+  document.body.style.overflow = ''; if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
   if(!o){ el.classList.remove('ativo'); $('#lista').style.display=''; $('#intro').style.display=''; return; }
   const i = OPCOES.indexOf(o), ant = OPCOES[(i + OPCOES.length - 1) % OPCOES.length], prox = OPCOES[(i + 1) % OPCOES.length];
   const cls = ok => ok === true ? 'ok' : ok === false ? 'nao' : 'talvez';
@@ -105,7 +108,7 @@ function detalhe(id){
   <h2 style="margin-top:4px">Opção ${esc(o.id)} — ${esc(o.nome)}</h2>
   <p class="sub">${esc(o.resumo)}</p>
   <div class="det">
-   <div class="palco" id="palco"><div class="zoom"><button id="zmais" aria-label="aproximar">+</button><button id="zmenos" aria-label="afastar">−</button><button id="zfit" aria-label="enquadrar">⤢</button></div>
+   <div class="palco" id="palco"><div class="zoom"><button id="zmais" aria-label="aproximar">+</button><button id="zmenos" aria-label="afastar">−</button><button id="zfit" aria-label="enquadrar" title="enquadrar">⤢</button><button id="zcheia" aria-label="tela cheia" title="tela cheia">⛶</button></div>
     <img id="planta" src="${esc(o.id)}.svg" alt="Planta da opção ${esc(o.id)}"></div>
    <div>
     <div class="caixa"><b style="font-size:18px">${fmt(o.area)} m²</b> construídos <span class="sub">(casa ${fmt(o.area_casa)} + garagem ${fmt(o.area_garagem)})</span><br>
@@ -147,6 +150,19 @@ function zoomPan(palco, img){
   $('#zmais').onclick = () => zoomEm(1.4, r0().width / 2, r0().height / 2);
   $('#zmenos').onclick = () => zoomEm(1 / 1.4, r0().width / 2, r0().height / 2);
   $('#zfit').onclick = fit;
+  // tela cheia: API do navegador; no iPhone (sem a API para elementos) ocupa a janela inteira
+  const btn = $('#zcheia');
+  const emCheia = () => document.fullscreenElement === palco || palco.classList.contains('cheia');
+  const atualizar = () => { const c = emCheia(); btn.textContent = c ? '✕' : '⛶';
+    btn.title = btn.ariaLabel = c ? 'sair da tela cheia' : 'tela cheia'; requestAnimationFrame(fit); };
+  btn.onclick = async () => {
+    if (emCheia()) { if (document.fullscreenElement) { try { await document.exitFullscreen(); } catch (e) {} }
+      palco.classList.remove('cheia'); document.body.style.overflow = ''; atualizar(); return; }
+    if (palco.requestFullscreen) { try { await palco.requestFullscreen(); atualizar(); return; } catch (e) {} }
+    palco.classList.add('cheia'); document.body.style.overflow = 'hidden'; atualizar();
+  };
+  palco.onfullscreenchange = atualizar;
+  window.onkeydown = e => { if (e.key === 'Escape' && palco.classList.contains('cheia')) btn.onclick(); };
 }
 addEventListener('hashchange', () => detalhe(location.hash.slice(1)));
 detalhe(location.hash.slice(1));
