@@ -1,0 +1,249 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 858.0 1794.0" width="858.0" height="1794.0">
+<style>
+.lote{fill:#eef4e8;stroke:#333;stroke-width:2.2}
+.calcada{fill:#e4ddd0;stroke:none}.grama-c{fill:#cfe3c0;stroke:none}.guia{fill:#b9b4aa;stroke:none}
+.rua{fill:#d4d4d4;stroke:none}
+.recuo{fill:none;stroke:#c0392b;stroke-width:1.1;stroke-dasharray:7 5;opacity:.7}
+.zona-gar{fill:none;stroke:#c0392b;stroke-width:1;stroke-dasharray:2 4;opacity:.6}
+.ext{stroke:none}.mat-intertravado{fill:#ddd2c0}.mat-concreto{fill:#e3e1dc}.mat-grama{fill:#cfe3c0}.mat-deck{fill:#e6d3b3}
+.c-social{fill:#fcf1dc}.c-intimo{fill:#e4eefa}.c-molhado{fill:#dcf1ee}.c-servico{fill:#efece6}
+.c-garagem{fill:#ebebeb}.c-circ{fill:#f7f5f0}.c-ext{fill:#eef6ea}
+.parede{fill:#3c3c3c;stroke:#2a2a2a;stroke-width:.6;fill-rule:evenodd}
+.vidro{stroke:#1f6fb2;stroke-width:1.6}.vao{fill:#fff;stroke:none}
+.batente{stroke:#2a2a2a;stroke-width:1.4}.folha{stroke:#2a2a2a;stroke-width:2.2}
+.arco{fill:none;stroke:#555;stroke-width:1;stroke-dasharray:3 2}
+.alta{stroke:#fff;stroke-width:1.4;stroke-dasharray:4 3}
+.movel{fill:#fff;stroke:#7a7a7a;stroke-width:1.1}.movel-l{fill:none;stroke:#9a9a9a;stroke-width:.9}
+.bancada{fill:#e8e4dc;stroke:#7a7a7a;stroke-width:1.1}.cuba{fill:#fff;stroke:#7a7a7a;stroke-width:1}
+.carro{fill:#e2e8f0;stroke:#6b7c93;stroke-width:1.2}.carro-l{fill:none;stroke:#6b7c93;stroke-width:1}
+.gr{fill:#f3ead9;stroke:#8a6d3b;stroke-width:1.2}.gr-l{fill:none;stroke:#8a6d3b;stroke-width:.9}
+.livre{fill:#2e7d3212;stroke:#2e7d32;stroke-width:.9;stroke-dasharray:3 3}
+.nome{font:700 15px system-ui,sans-serif;fill:#222;text-anchor:middle;paint-order:stroke;stroke:#fffc;stroke-width:3px}
+.nome-p{font:700 12px system-ui,sans-serif;fill:#222;text-anchor:middle;paint-order:stroke;stroke:#fffc;stroke-width:3px}
+.area{font:12px system-ui,sans-serif;fill:#444;text-anchor:middle;paint-order:stroke;stroke:#fffc;stroke-width:3px}
+.area-p{font:10px system-ui,sans-serif;fill:#444;text-anchor:middle;paint-order:stroke;stroke:#fffc;stroke-width:3px}
+.cota{stroke:#666;stroke-width:1}.cota-txt{font:12px system-ui,sans-serif;fill:#444;text-anchor:middle}
+.cota-r{stroke:#c0392b;stroke-width:1}.cota-r-txt{font:12px system-ui,sans-serif;fill:#c0392b;text-anchor:middle}
+.rot{font:600 13px system-ui,sans-serif;fill:#555;text-anchor:middle;letter-spacing:2px}
+.rot-p{font:11px system-ui,sans-serif;fill:#666;text-anchor:middle}
+.norte{fill:none;stroke:#333;stroke-width:1.4}.norte-f{fill:#333}
+.norte-t{font:700 14px system-ui,sans-serif;fill:#333;text-anchor:middle}
+.titulo{font:700 20px system-ui,sans-serif;fill:#222}.sub{font:13px system-ui,sans-serif;fill:#555}
+</style>
+<rect width="100%" height="100%" fill="#fff"/>
+<g id="fundo" class="camada"><rect class="rua" x="0.0" y="1647.0" width="858.0" height="147.0" />
+<rect class="guia" x="0.0" y="1638.0" width="858.0" height="9.0" />
+<rect class="grama-c" x="0.0" y="1569.0" width="858.0" height="69.0" />
+<rect class="calcada" x="0.0" y="1488.0" width="858.0" height="81.0" />
+<rect class="calcada" x="123.3" y="1569.0" width="318.0" height="69.0" />
+<text class="rot" x="447.0" y="1698.0">RUA  ·  FRENTE PARA SUDOESTE</text>
+<rect class="lote" x="102.0" y="78.0" width="690.0" height="1410.0" />
+<rect class="ext mat-intertravado" x="102.0" y="1398.0" width="360.6" height="90.0" />
+<rect class="recuo" x="192.0" y="168.0" width="510.0" height="1230.0" />
+<text class="rot-p" x="447.0" y="157.2">limite dos recuos obrigatórios (1,50)</text></g>
+<g id="comodos" class="camada"><path class="c-garagem" d="M453.6,1398.0 L453.6,1083.0 L111.0,1083.0 L111.0,1398.0 L453.6,1398.0 Z"/>
+<path class="c-intimo" d="M453.6,1074.0 L453.6,918.0 L213.0,918.0 L213.0,1074.0 L453.6,1074.0 Z"/>
+<path class="c-molhado" d="M384.6,909.0 L384.6,825.0 L213.0,825.0 L213.0,909.0 L384.6,909.0 Z"/>
+<path class="c-intimo" d="M384.6,816.0 L384.6,660.0 L213.0,660.0 L213.0,816.0 L384.6,816.0 Z"/>
+<path class="c-circ" d="M453.6,909.0 L453.6,697.8 L393.6,697.8 L393.6,909.0 L453.6,909.0 Z"/>
+<path class="c-intimo" d="M213.0,651.0 L213.0,433.2 L393.6,433.2 L393.6,340.2 L453.6,340.2 L453.6,688.8 L393.6,688.8 L393.6,651.0 L213.0,651.0 Z"/>
+<path class="c-molhado" d="M384.6,424.2 L384.6,340.2 L213.0,340.2 L213.0,424.2 L384.6,424.2 Z"/>
+<path class="c-molhado" d="M552.6,562.2 L552.6,340.2 L462.6,340.2 L462.6,562.2 L552.6,562.2 Z"/>
+<path class="c-social" d="M693.0,1152.0 L693.0,571.2 L462.6,571.2 L462.6,1152.0 L693.0,1152.0 Z"/></g>
+<g id="moveis" class="camada"><rect class="carro" x="159.0" y="1101.0" width="108.0" height="270.0" rx="30.24"/>
+<polygon class="carro-l" points="256.2,1252.2 169.8,1252.2 169.8,1295.4 256.2,1295.4"/>
+<polygon class="carro-l" points="254.04,1155.0 171.96,1155.0 171.96,1182.0 254.04,1182.0"/>
+<rect class="carro" x="318.0" y="1101.0" width="108.0" height="270.0" rx="30.24"/>
+<polygon class="carro-l" points="415.2,1252.2 328.8,1252.2 328.8,1295.4 415.2,1295.4"/>
+<polygon class="carro-l" points="413.04,1155.0 330.96,1155.0 330.96,1182.0 413.04,1182.0"/>
+<circle class="movel-l" cx="129.0" cy="1142.1" r="12.0"/>
+<circle class="movel-l" cx="129.0" cy="1200.9" r="12.0"/>
+<polyline class="movel-l" points="129.0,1142.1 129.0,1200.9"/>
+<polygon class="movel" points="330.0,951.0 246.0,951.0 246.0,984.0 330.0,984.0"/>
+<polygon class="movel-l" points="213.0,861.0 213.0,909.0 267.0,909.0 267.0,861.0"/>
+<polyline class="movel-l" points="213.0,861.0 267.0,909.0"/>
+<polyline class="movel-l" points="213.0,909.0 267.0,861.0"/>
+<circle class="cuba" cx="240.0" cy="885.0" r="3.0"/>
+<polygon class="movel" points="295.8,909.0 310.2,909.0 310.2,898.08 295.8,898.08"/>
+<ellipse class="movel" cx="303.0" cy="884.82" rx="7.2" ry="14.04"/>
+<polygon class="bancada" points="333.0,909.0 375.0,909.0 375.0,882.0 333.0,882.0"/>
+<ellipse class="cuba" cx="354.0" cy="894.96" rx="12.0" ry="8.1"/>
+<polygon class="movel" points="213.0,816.0 333.0,816.0 333.0,780.0 213.0,780.0"/>
+<polygon class="movel" points="288.0,744.0 258.0,744.0 258.0,774.0 288.0,774.0"/>
+<polyline class="movel-l" points="288.0,750.0 258.0,750.0"/>
+<polygon class="gr" points="339.0,660.0 213.0,660.0 213.0,696.0 339.0,696.0"/>
+<polyline class="gr-l" points="307.5,679.8 307.5,696.0"/>
+<polyline class="gr-l" points="276.0,679.8 276.0,696.0"/>
+<polyline class="gr-l" points="244.5,679.8 244.5,696.0"/>
+<polyline class="gr-l" points="339.0,664.32 213.0,664.32"/>
+<polygon class="gr" points="213.0,651.0 384.6,651.0 384.6,615.0 213.0,615.0"/>
+<polyline class="gr-l" points="241.6,631.2 241.6,615.0"/>
+<polyline class="gr-l" points="270.2,631.2 270.2,615.0"/>
+<polyline class="gr-l" points="298.8,631.2 298.8,615.0"/>
+<polyline class="gr-l" points="327.4,631.2 327.4,615.0"/>
+<polyline class="gr-l" points="356.0,631.2 356.0,615.0"/>
+<polyline class="gr-l" points="213.0,646.68 384.6,646.68"/>
+<rect class="livre" x="213.0" y="579.0" width="171.6" height="36.0" />
+<polygon class="movel" points="346.8,433.2 250.8,433.2 250.8,553.2 346.8,553.2"/>
+<polygon class="movel-l" points="341.04,438.0 304.56,438.0 304.56,454.8 341.04,454.8"/>
+<polygon class="movel-l" points="293.04,438.0 256.56,438.0 256.56,454.8 293.04,454.8"/>
+<polyline class="movel-l" points="346.8,478.8 250.8,478.8"/>
+<polyline class="movel-l" points="346.8,478.8 335.28,469.2"/>
+<polygon class="movel-l" points="267.0,340.2 213.0,340.2 213.0,393.0 267.0,393.0"/>
+<polyline class="movel-l" points="267.0,340.2 213.0,393.0"/>
+<polyline class="movel-l" points="213.0,340.2 267.0,393.0"/>
+<circle class="cuba" cx="240.0" cy="366.6" r="3.0"/>
+<polygon class="movel" points="301.2,340.2 286.8,340.2 286.8,351.12 301.2,351.12"/>
+<ellipse class="movel" cx="294.0" cy="364.38" rx="7.2" ry="14.04"/>
+<polygon class="bancada" points="384.0,340.2 342.0,340.2 342.0,369.0 384.0,369.0"/>
+<ellipse class="cuba" cx="363.0" cy="355.18" rx="12.0" ry="8.64"/>
+<polygon class="bancada" points="552.6,376.2 552.6,340.2 516.6,340.2 516.6,376.2"/>
+<polygon class="cuba" points="547.2,371.88 547.2,344.52 522.0,344.52 522.0,371.88"/>
+<polygon class="movel" points="552.6,420.0 552.6,381.0 513.6,381.0 513.6,420.0"/>
+<circle class="movel-l" cx="533.1" cy="400.5" r="12.87"/>
+<polygon class="movel" points="552.6,492.0 552.6,426.0 516.6,426.0 516.6,492.0"/>
+<polygon class="bancada" points="462.6,660.0 462.6,822.0 498.6,822.0 498.6,660.0"/>
+<polygon class="bancada" points="462.6,720.0 462.6,768.0 498.6,768.0 498.6,720.0"/>
+<polygon class="cuba" points="468.0,724.8 468.0,763.2 494.28,763.2 494.28,724.8"/>
+<polygon class="movel" points="462.6,615.0 462.6,657.0 504.6,657.0 504.6,615.0"/>
+<polyline class="movel-l" points="498.3,615.0 498.3,657.0"/>
+<polygon class="bancada" points="606.0,798.0 606.0,636.0 567.0,636.0 567.0,798.0"/>
+<polygon class="bancada" points="603.0,735.0 603.0,699.0 567.0,699.0 567.0,735.0"/>
+<circle class="cuba" cx="592.2" cy="724.92" r="6.12"/>
+<circle class="cuba" cx="577.08" cy="724.92" r="6.12"/>
+<circle class="cuba" cx="592.2" cy="709.08" r="6.12"/>
+<circle class="cuba" cx="577.08" cy="709.08" r="6.12"/>
+<polygon class="movel-l" points="532.0,940.2 556.0,940.2 556.0,918.0 532.0,918.0"/>
+<polygon class="movel-l" points="532.0,858.0 556.0,858.0 556.0,835.8 532.0,835.8"/>
+<polygon class="movel-l" points="570.0,940.2 594.0,940.2 594.0,918.0 570.0,918.0"/>
+<polygon class="movel-l" points="570.0,858.0 594.0,858.0 594.0,835.8 570.0,835.8"/>
+<polygon class="movel-l" points="608.0,940.2 632.0,940.2 632.0,918.0 608.0,918.0"/>
+<polygon class="movel-l" points="608.0,858.0 632.0,858.0 632.0,835.8 608.0,835.8"/>
+<polygon class="movel" points="525.0,915.0 639.0,915.0 639.0,861.0 525.0,861.0"/>
+<polygon class="movel" points="498.0,972.0 498.0,1086.0 552.0,1086.0 552.0,972.0"/>
+<polyline class="movel-l" points="513.12,972.0 513.12,1086.0"/>
+<polyline class="movel-l" points="513.12,981.0 552.0,981.0"/>
+<polyline class="movel-l" points="513.12,1077.0 552.0,1077.0"/>
+<polyline class="movel-l" points="513.12,1029.0 552.0,1029.0"/>
+<polygon class="movel" points="693.0,1086.0 693.0,990.0 669.0,990.0 669.0,1086.0"/></g>
+<g id="moveis_txt" class="camada"><text class="rot-p" x="483.6" y="639.6">G</text></g>
+<g id="paredes" class="camada"><path class="parede" d="M133.2,1074.0 L133.2,1083.0 L111.0,1083.0 L111.0,1398.0 L102.0,1398.0 L102.0,1074.0 L111.0,1074.0 L133.2,1074.0 Z M204.0,1074.0 L204.0,1034.4 L213.0,1034.4 L213.0,1074.0 L453.6,1074.0 L453.6,918.0 L451.2,918.0 L451.2,909.0 L453.6,909.0 L453.6,892.2 L462.6,892.2 L462.6,1095.0 L453.6,1095.0 L453.6,1083.0 L213.0,1083.0 L204.0,1083.0 L181.2,1083.0 L181.2,1074.0 L204.0,1074.0 Z M204.0,772.8 L213.0,772.8 L213.0,816.0 L384.6,816.0 L384.6,813.0 L393.6,813.0 L393.6,828.0 L384.6,828.0 L384.6,825.0 L213.0,825.0 L213.0,909.0 L384.6,909.0 L384.6,870.0 L393.6,870.0 L393.6,909.0 L403.2,909.0 L403.2,918.0 L213.0,918.0 L213.0,962.4 L204.0,962.4 L204.0,772.8 Z M204.0,571.8 L213.0,571.8 L213.0,651.0 L393.6,651.0 L393.6,660.0 L393.6,688.8 L403.2,688.8 L403.2,697.8 L393.6,697.8 L393.6,765.0 L384.6,765.0 L384.6,660.0 L213.0,660.0 L213.0,700.8 L204.0,700.8 L204.0,571.8 Z M204.0,340.2 L204.0,331.2 L213.0,331.2 L493.2,331.2 L493.2,340.2 L462.6,340.2 L462.6,562.2 L468.6,562.2 L468.6,571.2 L462.6,571.2 L462.6,838.2 L453.6,838.2 L453.6,697.8 L451.2,697.8 L451.2,688.8 L453.6,688.8 L453.6,340.2 L393.6,340.2 L393.6,372.0 L384.6,372.0 L384.6,340.2 L213.0,340.2 L213.0,424.2 L384.6,424.2 L384.6,420.0 L393.6,420.0 L393.6,424.2 L393.6,433.2 L213.0,433.2 L213.0,499.8 L204.0,499.8 L204.0,340.2 Z M561.6,331.2 L561.6,340.2 L561.6,562.2 L582.0,562.2 L582.0,571.2 L516.6,571.2 L516.6,562.2 L552.6,562.2 L552.6,340.2 L535.2,340.2 L535.2,331.2 L561.6,331.2 Z M693.0,562.2 L702.0,562.2 L702.0,571.2 L702.0,580.8 L693.0,580.8 L693.0,571.2 L690.0,571.2 L690.0,562.2 L693.0,562.2 Z M702.0,845.4 L693.0,845.4 L693.0,700.8 L702.0,700.8 L702.0,845.4 Z M702.0,1152.0 L738.0,1152.0 L738.0,1161.0 L702.0,1161.0 L693.0,1161.0 L633.0,1161.0 L633.0,1152.0 L693.0,1152.0 L693.0,965.4 L702.0,965.4 L702.0,1152.0 Z M792.0,1152.0 L792.0,1161.0 L786.0,1161.0 L786.0,1152.0 L792.0,1152.0 Z M556.8,1161.0 L556.8,1152.0 L585.0,1152.0 L585.0,1161.0 L556.8,1161.0 Z M462.6,1161.0 L453.6,1161.0 L453.6,1149.0 L462.6,1149.0 L462.6,1152.0 L508.8,1152.0 L508.8,1161.0 L462.6,1161.0 Z M453.6,1398.0 L453.6,1389.0 L462.6,1389.0 L462.6,1398.0 L453.6,1398.0 Z"/></g>
+<g id="aberturas" class="camada"><line class="folha" x1="462.6" y1="1149.0" x2="516.6" y2="1149.0"/>
+<polyline class="arco" points="462.6,1095.0 467.89,1095.26 473.13,1096.04 478.28,1097.33 483.26,1099.11 488.06,1101.38 492.6,1104.1 496.86,1107.26 500.78,1110.82 504.34,1114.74 507.5,1119.0 510.22,1123.54 512.49,1128.34 514.27,1133.32 515.56,1138.47 516.34,1143.71 516.6,1149.0"/>
+<line class="folha" x1="133.2" y1="1074.0" x2="133.2" y2="1026.0"/>
+<polyline class="arco" points="181.2,1074.0 180.97,1069.3 180.28,1064.64 179.13,1060.07 177.55,1055.63 175.53,1051.37 173.11,1047.33 170.3,1043.55 167.14,1040.06 163.65,1036.9 159.87,1034.09 155.83,1031.67 151.57,1029.65 147.13,1028.07 142.56,1026.92 137.9,1026.23 133.2,1026.0"/>
+<rect class="vao" x="453.6" y="838.2" width="9.0" height="54.0" />
+<line class="vidro" x1="456.75" y1="892.2" x2="456.75" y2="862.5"/>
+<line class="vidro" x1="459.45" y1="867.9" x2="459.45" y2="838.2"/>
+<line class="folha" x1="403.2" y1="918.0" x2="403.2" y2="966.0"/>
+<polyline class="arco" points="451.2,918.0 450.97,922.7 450.28,927.36 449.13,931.93 447.55,936.37 445.53,940.63 443.11,944.67 440.3,948.45 437.14,951.94 433.65,955.1 429.87,957.91 425.83,960.33 421.57,962.35 417.13,963.93 412.56,965.08 407.9,965.77 403.2,966.0"/>
+<line class="folha" x1="384.6" y1="828.0" x2="342.6" y2="828.0"/>
+<polyline class="arco" points="384.6,870.0 380.48,869.8 376.41,869.19 372.41,868.19 368.53,866.8 364.8,865.04 361.27,862.92 357.96,860.47 354.9,857.7 352.13,854.64 349.68,851.33 347.56,847.8 345.8,844.07 344.41,840.19 343.41,836.19 342.8,832.12 342.6,828.0"/>
+<line class="folha" x1="384.6" y1="765.0" x2="336.6" y2="765.0"/>
+<polyline class="arco" points="384.6,813.0 379.9,812.77 375.24,812.08 370.67,810.93 366.23,809.35 361.97,807.33 357.93,804.91 354.15,802.1 350.66,798.94 347.5,795.45 344.69,791.67 342.27,787.63 340.25,783.37 338.67,778.93 337.52,774.36 336.83,769.7 336.6,765.0"/>
+<line class="folha" x1="403.2" y1="688.8" x2="403.2" y2="640.8"/>
+<polyline class="arco" points="451.2,688.8 450.97,684.1 450.28,679.44 449.13,674.87 447.55,670.43 445.53,666.17 443.11,662.13 440.3,658.35 437.14,654.86 433.65,651.7 429.87,648.89 425.83,646.47 421.57,644.45 417.13,642.87 412.56,641.72 407.9,641.03 403.2,640.8"/>
+<line class="folha" x1="384.6" y1="372.0" x2="336.6" y2="372.0"/>
+<polyline class="arco" points="384.6,420.0 379.9,419.77 375.24,419.08 370.67,417.93 366.23,416.35 361.97,414.33 357.93,411.91 354.15,409.1 350.66,405.94 347.5,402.45 344.69,398.67 342.27,394.63 340.25,390.37 338.67,385.93 337.52,381.36 336.83,376.7 336.6,372.0"/>
+<line class="folha" x1="468.6" y1="562.2" x2="468.6" y2="514.2"/>
+<polyline class="arco" points="516.6,562.2 516.37,557.5 515.68,552.84 514.53,548.27 512.95,543.83 510.93,539.57 508.51,535.53 505.7,531.75 502.54,528.26 499.05,525.1 495.27,522.29 491.23,519.87 486.97,517.85 482.53,516.27 477.96,515.12 473.3,514.43 468.6,514.2"/>
+<rect class="vao" x="204.0" y="962.4" width="9.0" height="72.0" />
+<line class="vidro" x1="207.15" y1="1034.4" x2="207.15" y2="962.4"/>
+<line class="vidro" x1="209.85" y1="1034.4" x2="209.85" y2="962.4"/>
+<line class="batente" x1="204.0" y1="1034.4" x2="213.0" y2="1034.4"/>
+<line class="batente" x1="204.0" y1="962.4" x2="213.0" y2="962.4"/>
+<line class="alta" x1="208.5" y1="885.6" x2="208.5" y2="849.6"/>
+<rect class="vao" x="204.0" y="700.8" width="9.0" height="72.0" />
+<line class="vidro" x1="207.15" y1="772.8" x2="207.15" y2="700.8"/>
+<line class="vidro" x1="209.85" y1="772.8" x2="209.85" y2="700.8"/>
+<line class="batente" x1="204.0" y1="772.8" x2="213.0" y2="772.8"/>
+<line class="batente" x1="204.0" y1="700.8" x2="213.0" y2="700.8"/>
+<rect class="vao" x="204.0" y="499.8" width="9.0" height="72.0" />
+<line class="vidro" x1="207.15" y1="571.8" x2="207.15" y2="499.8"/>
+<line class="vidro" x1="209.85" y1="571.8" x2="209.85" y2="499.8"/>
+<line class="batente" x1="204.0" y1="571.8" x2="213.0" y2="571.8"/>
+<line class="batente" x1="204.0" y1="499.8" x2="213.0" y2="499.8"/>
+<line class="alta" x1="208.5" y1="402.0" x2="208.5" y2="366.0"/>
+<line class="alta" x1="316.2" y1="335.7" x2="352.2" y2="335.7"/>
+<rect class="vao" x="493.2" y="331.2" width="42.0" height="9.0" />
+<line class="vidro" x1="493.2" y1="337.05" x2="535.2" y2="337.05"/>
+<line class="vidro" x1="493.2" y1="334.35" x2="535.2" y2="334.35"/>
+<line class="batente" x1="493.2" y1="340.2" x2="493.2" y2="331.2"/>
+<line class="batente" x1="535.2" y1="340.2" x2="535.2" y2="331.2"/>
+<rect class="vao" x="582.0" y="562.2" width="108.0" height="9.0" />
+<line class="vidro" x1="582.0" y1="568.05" x2="690.0" y2="568.05"/>
+<line class="vidro" x1="582.0" y1="565.35" x2="690.0" y2="565.35"/>
+<line class="batente" x1="582.0" y1="571.2" x2="582.0" y2="562.2"/>
+<line class="batente" x1="690.0" y1="571.2" x2="690.0" y2="562.2"/>
+<rect class="vao" x="693.0" y="845.4" width="9.0" height="120.0" />
+<line class="vidro" x1="696.15" y1="965.4" x2="696.15" y2="845.4"/>
+<line class="vidro" x1="698.85" y1="965.4" x2="698.85" y2="845.4"/>
+<line class="batente" x1="693.0" y1="965.4" x2="702.0" y2="965.4"/>
+<line class="batente" x1="693.0" y1="845.4" x2="702.0" y2="845.4"/>
+<rect class="vao" x="693.0" y="580.8" width="9.0" height="120.0" />
+<line class="vidro" x1="696.15" y1="700.8" x2="696.15" y2="580.8"/>
+<line class="vidro" x1="698.85" y1="700.8" x2="698.85" y2="580.8"/>
+<line class="batente" x1="693.0" y1="700.8" x2="702.0" y2="700.8"/>
+<line class="batente" x1="693.0" y1="580.8" x2="702.0" y2="580.8"/>
+<rect class="vao" x="508.8" y="1152.0" width="48.0" height="9.0" />
+<line class="vidro" x1="508.8" y1="1157.85" x2="556.8" y2="1157.85"/>
+<line class="vidro" x1="508.8" y1="1155.15" x2="556.8" y2="1155.15"/>
+<line class="batente" x1="508.8" y1="1161.0" x2="508.8" y2="1152.0"/>
+<line class="batente" x1="556.8" y1="1161.0" x2="556.8" y2="1152.0"/>
+<rect class="vao" x="585.0" y="1152.0" width="48.0" height="9.0" />
+<line class="vidro" x1="585.0" y1="1157.85" x2="633.0" y2="1157.85"/>
+<line class="vidro" x1="585.0" y1="1155.15" x2="633.0" y2="1155.15"/>
+<line class="batente" x1="585.0" y1="1161.0" x2="585.0" y2="1152.0"/>
+<line class="batente" x1="633.0" y1="1161.0" x2="633.0" y2="1152.0"/></g>
+<g id="textos" class="camada"><text class="nome" x="282.0" y="1344.0">Garagem</text>
+<text class="area" x="282.0" y="1365.6">5,71 × 5,25  ·  29,98 m²</text>
+<text class="nome" x="300.0" y="1038.0">Academia / quarto 3</text>
+<text class="area" x="300.0" y="1059.6">4,01 × 2,60  ·  10,43 m²</text>
+<text class="nome-p" x="282.0" y="837.0">Banheiro</text>
+<text class="area-p" x="282.0" y="855.0">2,86 × 1,40</text>
+<text class="nome" x="276.0" y="723.0">Escritório</text>
+<text class="area" x="276.0" y="744.6">2,86 × 2,60  ·  7,44 m²</text>
+<text class="nome-p" x="423.6" y="762.0">Corredor</text>
+<text class="area-p" x="423.6" y="780.0">1,00 × 3,52</text>
+<text class="nome" x="300.0" y="582.0">Suíte</text>
+<text class="area" x="300.0" y="603.6">16,74 m²</text>
+<text class="nome-p" x="300.0" y="399.0">Banho suíte</text>
+<text class="area-p" x="300.0" y="417.0">2,86 × 1,40</text>
+<text class="nome-p" x="489.0" y="486.0">Lavanderia</text>
+<text class="area-p" x="489.0" y="504.0">1,50 × 3,70</text>
+<text class="nome" x="606.0" y="804.0">Cozinha, jantar e TV</text>
+<text class="area" x="606.0" y="825.6">3,84 × 9,68  ·  37,17 m²</text></g>
+<g id="cotas" class="camada"><line class="cota" x1="102.0" y1="39.0" x2="792.0" y2="39.0"/>
+<line class="cota" x1="97.8" y1="43.2" x2="106.2" y2="34.8"/>
+<line class="cota" x1="787.8" y1="43.2" x2="796.2" y2="34.8"/>
+<text class="cota-txt" x="447.0" y="34.2">11,50</text>
+<line class="cota" x1="831.0" y1="1488.0" x2="831.0" y2="78.0"/>
+<line class="cota" x1="826.8" y1="1492.2" x2="835.2" y2="1483.8"/>
+<line class="cota" x1="826.8" y1="82.2" x2="835.2" y2="73.8"/>
+<text class="cota-txt" x="826.2" y="783.0" transform="rotate(-90 826.2 783.0)">23,50</text>
+<line class="cota-r" x1="102.0" y1="403.2" x2="204.0" y2="403.2"/>
+<line class="cota-r" x1="97.8" y1="407.4" x2="106.2" y2="399.0"/>
+<line class="cota-r" x1="199.8" y1="407.4" x2="208.2" y2="399.0"/>
+<text class="cota-r-txt" x="153.0" y="398.4">1,70</text>
+<line class="cota-r" x1="702.0" y1="403.2" x2="792.0" y2="403.2"/>
+<line class="cota-r" x1="697.8" y1="407.4" x2="706.2" y2="399.0"/>
+<line class="cota-r" x1="787.8" y1="407.4" x2="796.2" y2="399.0"/>
+<text class="cota-r-txt" x="747.0" y="398.4">1,50</text>
+<line class="cota-r" x1="453.0" y1="331.2" x2="453.0" y2="78.0"/>
+<line class="cota-r" x1="448.8" y1="335.4" x2="457.2" y2="327.0"/>
+<line class="cota-r" x1="448.8" y1="82.2" x2="457.2" y2="73.8"/>
+<text class="cota-r-txt" x="448.2" y="204.6" transform="rotate(-90 448.2 204.6)">4,22</text>
+<line class="cota" x1="204.0" y1="304.2" x2="702.0" y2="304.2"/>
+<line class="cota" x1="199.8" y1="308.4" x2="208.2" y2="300.0"/>
+<line class="cota" x1="697.8" y1="308.4" x2="706.2" y2="300.0"/>
+<text class="cota-txt" x="453.0" y="299.4">casa 8,30</text>
+<line class="cota-r" x1="729.0" y1="1488.0" x2="729.0" y2="1161.0"/>
+<line class="cota-r" x1="724.8" y1="1492.2" x2="733.2" y2="1483.8"/>
+<line class="cota-r" x1="724.8" y1="1165.2" x2="733.2" y2="1156.8"/>
+<text class="cota-r-txt" x="724.2" y="1324.5" transform="rotate(-90 724.2 1324.5)">5,45</text></g>
+<g id="norte" class="camada"><circle class="norte" cx="51.0" cy="114.0" r="25.2"/>
+<polygon class="norte-f" points="33.18,96.18 44.21,120.79 57.79,107.21"/>
+<text class="norte-t" x="22.15" y="89.95">N</text></g>
+<g id="titulo" class="camada"><text class="titulo" x="15.0" y="1743.0">Opção G — Planta v4 (essencial)</text>
+<text class="sub" x="15.0" y="1770.0">131,18 m² construídos (casa 101,20 + garagem 29,98) · 3 quartos · 2 banheiros</text></g>
+</svg>
